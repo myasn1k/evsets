@@ -146,6 +146,7 @@ close_evsets()
 	free (evsets);
 	munmap (probe, pool_sz);
 	munmap (pool, pool_sz);
+        num_evsets = 0;
 #ifdef THREAD_COUNTER
 	destroy_counter ();
 #endif /* THREAD_COUNTER */
@@ -284,7 +285,7 @@ find_evsets()
 	clock_t ts, te;
 
 	int len = 0;
-	int id = num_evsets;
+	int id = 0;
 	// Iterate over all colors of conf.offset
 	do
 	{

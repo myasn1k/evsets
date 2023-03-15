@@ -191,15 +191,20 @@ main(int argc, char **argv)
 	}
 
 	if (init_evsets(&configuration)) {
-		printf("[-] Initializing evsets library failed.\n");
-		return 1;
+            printf("[-] Initializing evsets library failed.\n");
+            return 1;
 	}
 
-	if (find_evsets()) {
-		printf("[-] Could not find all desired eviction sets.\n");
-	}
+        for (configuration.offset = 0; configuration.offset < configuration.buffer_size / 64; configuration.offset++) {
+            printf("++++++++ Offset: %d\n", configuration.offset);
 
-	close_evsets();
+	    if (find_evsets()) {
+	    	printf("[-] Could not find all desired eviction sets.\n");
+	    }
+
+        }
+
+        close_evsets();
 
 	return 0;
 }
